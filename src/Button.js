@@ -3,7 +3,7 @@ import React from "react";
 export const Button = (props) => {
   return (
     <>
-      <button>{props.children}</button>
+      <button onClick={props.onClick}>{props.children}</button>
     </>
   );
 };

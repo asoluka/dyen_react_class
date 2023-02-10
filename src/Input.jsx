@@ -1,10 +1,17 @@
-import React from "react";
-
-export const Input = ({ type, placeholder, labelTxt, name }) => {
+export const Input = ({
+  type,
+  placeholder,
+  labelTxt,
+  name,
+  onChange,
+  value,
+}) => {
   return (
     <>
       <label htmlFor={name}>{labelTxt}</label>
       <input
+        onChange={onChange}
+        value={value}
         id={name}
         type={type}
         placeholder={placeholder}
