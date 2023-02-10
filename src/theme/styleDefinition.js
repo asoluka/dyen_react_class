@@ -33,3 +33,7 @@ export const p = {
   backgroundColor: "black",
   padding: "5px",
 };
+
+export const flex = {
+  display: "flex",
+};

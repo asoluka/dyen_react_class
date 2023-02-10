@@ -1,13 +1,9 @@
 import React from "react";
-import { Text } from "./Text";
 
-function Button() {
+export const Button = (props) => {
   return (
     <>
-      <button>Click me</button>
-      <Text text="Jason" />
+      <button>{props.children}</button>
     </>
   );
-}
-
-export default Button;
+};
