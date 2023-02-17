@@ -1,4 +1,9 @@
 import { useState } from "react";
+import { flexStyle } from "./utils/jsStyles";
+import { flex } from "./utils/helperFunctions";
+import { Footer } from "./Footer";
+import { Nav } from "./Nav";
+import { Input } from "./Input";
 
 function App() {
   const [px, setPX] = useState(0);
@@ -25,22 +30,11 @@ function App() {
     setPX(newValue);
   };
 
-  const flex = (alignItems, justifyContent, flexDirection) => {
-    return { display: "flex", alignItems, justifyContent, flexDirection };
-  };
-
-  const inputStyle = {
-    width: "350px",
-    padding: "4px 20px",
-    border: "1px solid #a2a1a1",
-    outline: 0,
-    height: "60px",
-    fontSize: "1.5rem",
-  };
-
-  const inputLabelStyle = {
-    textAlign: "center",
-    padding: "10px 0",
+  const handleBaseInputChange = (e) => {
+    // 1. Any rem value can be converted to px (unknown) using a base size ::: px = rem * baseSize
+    // 2. Any px value can be converted to rem (unknown) using the base size ::: rem = px / baseSize
+    setBaseSize(e.target.value);
+    setPX(rem * e.target.value);
   };
 
   return (
@@ -49,77 +43,31 @@ function App() {
         height: "100vh",
       }}
     >
-      <nav
-        style={{
-          ...flex("center", "space-between"),
-          height: "8vh",
-          width: "100%",
-          padding: " 0 16px",
-        }}
-      >
-        <p>dyenCal</p>
-        <p>burger</p>
-      </nav>
+      <Nav />
 
-      <section
-        style={{
-          ...flex("center", "center", "column"),
-          height: "83vh",
-          padding: " 0 16px",
-        }}
-      >
+      <section style={flexStyle}>
         <h1 style={{ padding: "0 0 20px 0" }}>PX to REM converter</h1>
         <section style={{ ...flex("center", "space-between"), width: "50%" }}>
-          <div>
-            <p style={inputLabelStyle}>Pixels</p>
-            <input
-              type="number"
-              style={inputStyle}
-              value={px}
-              onChange={handlePXChange}
-            />
-          </div>
-          <div>
-            <p style={inputLabelStyle}>REM</p>
-            <input
-              type="number"
-              style={inputStyle}
-              value={rem}
-              onChange={handleREMChange}
-            />
-          </div>
+          <Input label="Pixel" value={px} onChange={handlePXChange} />
+          <Input label="REM" value={rem} onChange={handleREMChange} />
         </section>
-        <p style={{ padding: "50px 0" }}>
+
+        <div style={{ padding: "50px 0", display: "inline" }}>
           Calculation based on a root font-size of{" "}
-          <input
+          <Input
             style={{
               outline: "0px",
               border: "0px",
               width: "40px",
               margin: "0 16px",
             }}
-            type="number"
             value={baseSize}
-            onChange={(e) => {
-              // 1. Any rem value can be converted to px (unknown) using a base size ::: px = rem * baseSize
-              // 2. Any px value can be converted to rem (unknown) using the base size ::: rem = px / baseSize
-              setBaseSize(e.target.value);
-              setPX(rem * e.target.value);
-            }}
-          />{" "}
-          pixel.
-        </p>
+            onChange={handleBaseInputChange}
+          />
+        </div>
       </section>
 
-      <footer
-        style={{
-          height: "8vh",
-        }}
-      >
-        <h3 style={{ padding: "20px 0", textAlign: "center" }}>
-          &copy; DYEN Cohort-5
-        </h3>
-      </footer>
+      <Footer />
     </main>
   );
 }
