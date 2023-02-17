@@ -1,26 +1,27 @@
 import { useState } from "react";
 
 function App() {
-  const [px, setPX] = useState("");
-  const [rem, setREM] = useState("");
+  const [px, setPX] = useState(0);
+  const [rem, setREM] = useState(0);
+  const [baseSize, setBaseSize] = useState(16);
 
   const calculatePX = (rem) => {
-    return (rem / 16).toFixed(3);
+    return (rem * baseSize).toFixed(3);
   };
 
   const calculateREM = (px) => {
-    return (px * 16).toFixed(3);
+    return (px / baseSize).toFixed(3);
   };
 
   const handlePXChange = (e) => {
-    let newValue = calculatePX(e.target.value);
+    let newValue = calculateREM(e.target.value);
     setPX(e.target.value);
     setREM(newValue);
   };
 
   const handleREMChange = (e) => {
     setREM(e.target.value);
-    let newValue = calculateREM(e.target.value);
+    let newValue = calculatePX(e.target.value);
     setPX(newValue);
   };
 
@@ -89,7 +90,24 @@ function App() {
           </div>
         </section>
         <p style={{ padding: "50px 0" }}>
-          Calculation based on a root font-size of 16 pixel.
+          Calculation based on a root font-size of{" "}
+          <input
+            style={{
+              outline: "0px",
+              border: "0px",
+              width: "40px",
+              margin: "0 16px",
+            }}
+            type="number"
+            value={baseSize}
+            onChange={(e) => {
+              // 1. Any rem value can be converted to px (unknown) using a base size ::: px = rem * baseSize
+              // 2. Any px value can be converted to rem (unknown) using the base size ::: rem = px / baseSize
+              setBaseSize(e.target.value);
+              setPX(rem * e.target.value);
+            }}
+          />{" "}
+          pixel.
         </p>
       </section>
 
