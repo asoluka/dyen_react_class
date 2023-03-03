@@ -4,6 +4,14 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function handleChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
   return (
     <div>
       <div className="main flex flex-center flex-column">
@@ -14,17 +22,13 @@ export function LoginPage() {
             type="email"
             placeholder="enter email"
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={handleChange}
           />
           <input
             type="password"
             placeholder="enter password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={handlePassword}
           />
         </section>
       </div>
