@@ -45,6 +45,14 @@
   justify-content: flex-start;
 }
 
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-align-between {
+  align-items: space-between;
+}
+
 .w-5 {
   width: 5%;
 }
